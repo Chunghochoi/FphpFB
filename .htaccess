@@ -1,11 +1,15 @@
+# Đặt index.php làm tệp mặc định để chạy
+DirectoryIndex index.php
+
+# Bật tính năng viết lại URL
 RewriteEngine On
 
+# Các quy tắc viết lại URL của bạn
 RewriteRule ^register$ register.php [L]
 RewriteRule ^login$ auth.php [L]
 RewriteRule ^tao-bien-dong-so-du$ list-fake-bdsd.php [L]
 RewriteRule ^tao-so-du$ list-fake-so-du.php [L]
 RewriteRule ^tao-bill-chuyen-tien$ list-fake-bill.php [L]
-RewriteRule ^login$ register.php [L]
 
 RewriteRule ^fake-bill-mbbanknew fakebill.php?name=mbbanknew [L]
 RewriteRule ^fake-bill-binance$ fakebill.php?name=binance [L]
@@ -41,40 +45,5 @@ RewriteRule ^card-topup$ card-topup.php [L]
 RewriteRule ^plans$ plan.php [L]
 RewriteRule ^api$ api.php [L]
 
-# BEGIN cPanel-generated php ini directives, do not edit
-# Manual editing of this file may result in unexpected behavior.
-# To make changes to this file, use the cPanel MultiPHP INI Editor (Home >> Software >> MultiPHP INI Editor)
-# For more information, read our documentation (https://go.cpanel.net/EA4ModifyINI)
-<IfModule php7_module>
-   php_flag display_errors Off
-   php_value max_execution_time 3600
-   php_value max_input_time 60
-   php_value max_input_vars 1000
-   php_value memory_limit 2G
-   php_value post_max_size 320M
-   php_value session.gc_maxlifetime 1440
-   php_value session.save_path "/var/cpanel/php/sessions/ea-php74"
-   php_value upload_max_filesize 320M
-   php_flag zlib.output_compression On
-</IfModule>
-<IfModule lsapi_module>
-   php_flag display_errors Off
-   php_value max_execution_time 3600
-   php_value max_input_time 60
-   php_value max_input_vars 1000
-   php_value memory_limit 2G
-   php_value post_max_size 320M
-   php_value session.gc_maxlifetime 1440
-   php_value session.save_path "/var/cpanel/php/sessions/ea-php74"
-   php_value upload_max_filesize 320M
-   php_flag zlib.output_compression On
-</IfModule>
-# END cPanel-generated php ini directives, do not edit
+# Trang lỗi 404 tùy chỉnh
 ErrorDocument 404 /404.html
-
-# php -- BEGIN cPanel-generated handler, do not edit
-# Set the “ea-php80” package as the default “PHP” programming language.
-<IfModule mime_module>
-  AddHandler application/x-httpd-ea-php80 .php .php8 .phtml
-</IfModule>
-# php -- END cPanel-generated handler, do not edit
