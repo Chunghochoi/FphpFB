@@ -1,5 +1,5 @@
 # Sử dụng image chính thức của PHP với máy chủ Apache
-FROM php:8.0-apache
+FROM php:8.2-apache
 
 # Sao chép toàn bộ mã nguồn của bạn vào thư mục web của Apache
 COPY . /var/www/html/
