@@ -1,26 +1,12 @@
 <?php
-session_start();
-require_once '../files/config.php'; // Đường dẫn đã được điều chỉnh cho phù hợp
+session_start(); // Đảm bảo đây là dòng ĐẦU TIÊN, không có bất kỳ ký tự nào trước nó.
+require_once 'files/config.php';
 
-// --- PHẦN SỬA LỖI ---
-// Giữ lại tinh túy bằng cách thêm lớp bảo vệ ở đầu file.
-
-// 1. Kiểm tra người dùng đã đăng nhập chưa.
+// Kiểm tra đăng nhập (đã có trong config.php, nhưng để ở đây vẫn an toàn)
 if (!isset($_SESSION['username'])) {
-    // Nếu chưa, chuyển hướng về trang đăng nhập.
     header("Location: /auth.php");
     exit();
 }
-
-// 2. Sau khi chắc chắn đã đăng nhập, kiểm tra xem có phải Admin không.
-// (Giả sử admin có level = 1, bạn có thể thay đổi số này nếu cần).
-if ($user_new['level'] != 1) {
-    // Nếu không phải admin, chuyển hướng về trang chủ.
-    header("Location: /");
-    exit();
-}
-// --- KẾT THÚC PHẦN SỬA LỖI ---
-
 ?>
 <!DOCTYPE html>
 <html lang="vi" class="light">
@@ -42,21 +28,21 @@ if ($user_new['level'] != 1) {
     <script src="/assets/js/tailwind.config.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <link rel="stylesheet" href="/assets/css/style.css?v=<?=time()?>">
-    <title>Trang Quản Trị</title>
+    <title>Trang Chủ</title>
 </head>
 
 <body class="bg-gray-100">
 
-    <?php require_once '../files/components/header.php'; // Đường dẫn đã được điều chỉnh ?>
+    <?php require_once 'files/components/header.php'; ?>
 
     <div class="container mx-auto px-4 py-8">
         <div class="bg-white p-6 rounded-lg shadow-md">
-            <h1 class="text-2xl font-bold text-gray-800">Chào mừng Admin, <?=$user_new['username']?>!</h1>
-            <p class="mt-2 text-gray-600">Đây là khu vực quản trị.</p>
+            <h1 class="text-2xl font-bold text-gray-800">Chào mừng, <?=$user_new['username']?>!</h1>
+            <p class="mt-2 text-gray-600">Số dư của bạn là: <?=number_format($user_new['cash'])?> VNĐ</p>
         </div>
     </div>
 
-    <?php require_once '../files/components/footer.php'; // Đường dẫn đã được điều chỉnh ?>
+    <?php require_once 'files/components/footer.php'; ?>
 
 </body>
 </html>
