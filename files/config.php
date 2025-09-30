@@ -10,24 +10,27 @@ require_once __DIR__ . '/../vendor/autoload.php';
 // Nạp thư viện database
 require_once 'libs/db.php';
 
-// --- KẾT NỐI DATABASE (ĐÃ SỬA CHO RENDER) ---
+// --- KẾT NỐI DATABASE (ĐÃ SỬA LỖI SSL CHO RENDER) ---
 
 // Lấy chuỗi kết nối duy nhất từ biến môi trường của Render
 $database_url = getenv('DATABASE_URL');
 
 if ($database_url) {
-    // Phân tích URL thành các thành phần: user, pass, host, path (tên db)
+    // Phân tích URL thành các thành phần
     $db_parts = parse_url($database_url);
 
-    // Gán các thông tin kết nối cho MeekroDB
-    DB::$user = $db_parts['user'];
-    DB::$password = $db_parts['pass'];
-    DB::$host = $db_parts['host'];
-    DB::$port = $db_parts['port'];
-    DB::$dbName = ltrim($db_parts['path'], '/'); // Loại bỏ dấu gạch chéo ở đầu
+    $host = $db_parts['host'];
+    $port = $db_parts['port'];
+    $dbname = ltrim($db_parts['path'], '/');
+    $user = $db_parts['user'];
+    $pass = $db_parts['pass'];
+
+    // Quan trọng: Thêm "sslmode=require" vào chuỗi DSN để bật SSL
+    DB::$dsn = "pgsql:host=$host;port=$port;dbname=$dbname;sslmode=require";
     
-    // Rất quan trọng: Chỉ định cho MeekroDB dùng driver của PostgreSQL
-    DB::$driver = 'pgsql';
+    // Gán các thông tin còn lại cho MeekroDB
+    DB::$user = $user;
+    DB::$password = $pass;
     
 } else {
     // Dừng ứng dụng nếu không tìm thấy chuỗi kết nối
