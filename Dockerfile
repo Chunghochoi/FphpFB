@@ -23,9 +23,13 @@ RUN composer install --no-dev --optimize-autoloader
 # Sao chép toàn bộ mã nguồn còn lại của bạn vào
 COPY . .
 
-# Cài đặt các extension PHP cần thiết (đã đổi sang pgsql) và bật mod_rewrite
+# Cài đặt các extension PHP cần thiết và bật mod_rewrite
 RUN docker-php-ext-install pdo pdo_pgsql gd && a2enmod rewrite
 
-# Cấp quyền
+# --- PHẦN SỬA LỖI QUAN TRỌNG ---
+# Cấp quyền cho thư mục session mặc định của PHP
+RUN chown -R www-data:www-data /var/lib/php/sessions
+
+# Cấp quyền cho thư mục mã nguồn
 RUN chown -R www-data:www-data /var/www/html
 RUN chmod -R 755 /var/www/html
