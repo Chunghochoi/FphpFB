@@ -1,49 +1,9 @@
-# Đặt index.php làm tệp mặc định để chạy
-DirectoryIndex index.php
-
-# Bật tính năng viết lại URL
 RewriteEngine On
+RewriteBase /
 
-# Các quy tắc viết lại URL của bạn
-RewriteRule ^register$ register.php [L]
-RewriteRule ^login$ auth.php [L]
-RewriteRule ^tao-bien-dong-so-du$ list-fake-bdsd.php [L]
-RewriteRule ^tao-so-du$ list-fake-so-du.php [L]
-RewriteRule ^tao-bill-chuyen-tien$ list-fake-bill.php [L]
+# 1. Bỏ qua các quy tắc bên dưới nếu đây là file hoặc thư mục có thật
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
 
-RewriteRule ^fake-bill-mbbanknew fakebill.php?name=mbbanknew [L]
-RewriteRule ^fake-bill-binance$ fakebill.php?name=binance [L]
-RewriteRule ^fake-bill-bidv$ fakebill.php?name=bidv [L]
-RewriteRule ^fake-bill-vietcombank$ fakebill.php?name=vietcombank [L]
-RewriteRule ^fake-bill-mbbank$ fakebill.php?name=mbbank [L]
-RewriteRule ^fake-bill-techcombank$ fakebill.php?name=techcombank [L]
-RewriteRule ^fake-bill-techcombank_vip$ fakebill.php?name=techcombank_vip [L]
-RewriteRule ^fake-bill-vietinbank$ fakebill.php?name=vietinbank [L]
-RewriteRule ^fake-bill-momo$ fakebill.php?name=momo [L]
-RewriteRule ^fake-bill-acb$ fakebill.php?name=acb [L]
-RewriteRule ^fake-bill-vpbank$ fakebill.php?name=vpbank [L]
-RewriteRule ^fake-bill-tpbank$ fakebill.php?name=tpbank [L]
-RewriteRule ^fake-bill-agribank$ fakebill.php?name=agribank [L]
-RewriteRule ^fake-bill-msb$ fakebill.php?name=msb [L]
-RewriteRule ^fake-cccd$ /fake-cccd.php [L]
-RewriteRule ^psd$ /psd.php [L]
-RewriteRule ^create-qr-cccd$ create-qr-cccd.php [L]
-RewriteRule ^fake-passport$ fake-passport.php [L]
-
-RewriteRule ^fake-bien-dong-vietcombank$ fake-bien-dong-so-du.php?name=vietcombank [L]
-RewriteRule ^fake-bien-dong-mbbank$ fake-bien-dong-so-du.php?name=mbbank [L]
-RewriteRule ^fake-bien-dong-acb$ fake-bien-dong-so-du.php?name=acb [L]
-
-RewriteRule ^fake-so-du-mbbank$ fake-so-du-tk.php?name=mbbank [L]
-RewriteRule ^fake-so-du-vietcombank$ fake-so-du-tk.php?name=vietcombank [L]
-RewriteRule ^fake-so-du-bidv$ fake-so-du-tk.php?name=bidv [L]
-RewriteRule ^fake-so-du-vietinbank$ fake-so-du-tk.php?name=vietinbank [L]
-
-RewriteRule ^payment$ payment.php [L]
-RewriteRule ^transfer$ transfer.php [L]
-RewriteRule ^card-topup$ card-topup.php [L]
-RewriteRule ^plans$ plan.php [L]
-RewriteRule ^api$ api.php [L]
-
-# Trang lỗi 404 tùy chỉnh
-ErrorDocument 404 /404.html
+# 2. Quy tắc tổng quát: Tự động thêm đuôi .php
+RewriteRule ^([^\.]+)$ $1.php [NC,L]
